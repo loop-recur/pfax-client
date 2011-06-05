@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../libs/jquery-1.6.1.js"></script>
+    <script src="../libs/underscore.js"></script>
+    <script src="../libs/backbone.js"></script>
+    <script src="../libs/mustache.js"></script>
+    <script type="x-mustache-template" name="search">
+      <div id="search"> 
+        <p>
+          <label for="property-search">Search Properties</label>
+            <input type="text" name="property-search" id="property-search" />
+        </p>
+        <p>
+          <input type="submit" value="Submit" id="submit" />
+        </p>
+      </div>
+    </script>
+    <script type="x-mustache-template" name="property">
+      <ul>
+        {{#properties}}
+        <li class='property-list-item'>
+          <a href="#properties/{{id}}">
+            <img src="{{url}}" /> 
+          </a>
+          <span>
+            {{description}}<br />
+          </span>
+          <span>
+            Address: <br />
+            {{street}}<br /> 
+            {{city}}, {{state}} {{zip}}<br />
+          </span>
+          <span>
+            Price: {{price}}
+          </span>
+        </li>
+        {{/properties}}
+      </ul>
+    </script>
+    <script type="x-mustache-template" name="showProperty">
+      <div class="show-property">
+        <p>
+          <img src="{{largeImage}}" /> 
+        </p>
+        <p>
+          {{description}}<br />
+        </p>
+        <p>
+          Address: <br />
+          {{street}}<br /> 
+          {{city}}, {{state}} {{zip}}<br />
+        </p>
+        <p>
+          Price: {{price}}
+        </p>
+      </div>
+    </script>
+    <script src="../application.js"></script>
+    <script src="../helpers.js"></script>
+    <script src="../controllers/properties_controller.js"></script>
+    <script src="../models/property.js"></script>	
+    <script src="../views/search.js"></script>
+    <script src="../views/searchResults.js"></script>
+    <script src="../views/index.js"></script>
+    <script src="../views/show.js"></script>
+    <script src="../views/edit.js"></script>
+  </head>
+<body>
+  <h1><a href="index.html">PropertyFax</a></h1>
+  <h2>A PropertyFax Application by loop/recur</h2>
+  <div id="notice"></div>
+  <div id="app"></div>
+
+  <script type="text/javascript">
+      $(function() {
+          PropertyFax.init();
+      });
+  </script>
+</body>
+</html>
