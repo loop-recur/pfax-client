@@ -10,4 +10,4 @@ var PropertyFax = {
 };
 
 
-PropertyFax.base_url = "http://localhost:3000/"
+PropertyFax.base_url = "http://localhost:3000/";

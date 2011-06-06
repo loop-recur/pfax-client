@@ -311,6 +311,8 @@ var Mustache = function() {
       Turns a template and view into HTML
     */
     to_html: function(template, view, partials, send_fun) {
+			console.log("called with");
+			console.log(template);
       var renderer = new Renderer();
       if(send_fun) {
         renderer.send = send_fun;

@@ -11,12 +11,12 @@
 #   - dist/**/*.js
 #
 src_files:
-    # - application.js
-    # - libs/underscore.js
-    # - libs/*.js
-    # - **/*.js
     - "libs/jquery-1.6.1.js"
     - "spec/javascripts/vendor/*.js"
+    - application.js
+    - libs/underscore.js
+    - libs/*.js
+    - app/**/*.js
 
 # stylesheets
 #
