@@ -1,6 +1,6 @@
 var PropertyCollection = Backbone.Collection.extend({
   model: Property,
-	base_url: PropertyFax.base_url+'properties',
+	base_url: root_url('properties'),
 
   url : function() {
 		var term = QueryString().getValue("term");

@@ -15,12 +15,12 @@ describe('Property', function() {
 	
 	it("returns the thumb", function() {
 		this.property.set({url: "/files/default/image.jpg"})
-	  expect(this.property.thumb()).toEqual("http://localhost:3000//files/default/image.jpg");
+	  expect(this.property.thumb()).toEqual("http://localhost:3000/files/default/image.jpg");
 	});
 	
 	it("returns the large image", function() {
 		this.property.set({url: "/files/original/image.jpg"})
-	  expect(this.property.thumb()).toEqual("http://localhost:3000//files/original/image.jpg");
+	  expect(this.property.thumb()).toEqual("http://localhost:3000/files/original/image.jpg");
 	});
 
 });

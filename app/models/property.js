@@ -1,5 +1,5 @@
 var Property = Backbone.Model.extend({
-	base_url: PropertyFax.base_url+'properties/',
+	base_url: root_url('properties/'),
 	
 	initialize : function() {
 		$.extend(this, this.attributes);
@@ -19,6 +19,6 @@ var Property = Backbone.Model.extend({
   },
 
   thumb: function() {
-		return PropertyFax.base_url+this.get('url');
+		return root_url(this.get('url'));
   }
 });
