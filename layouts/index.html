@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../libs/jquery-1.6.1.js"></script>
+    <script src="../libs/underscore.js"></script>
+    <script src="../libs/backbone.js"></script>
+    <script src="../libs/mustache.js"></script>
+		<script src="../libs/query_string.js"></script>
+    <script type="x-mustache-template" name="index">
+      <ul>
+        {{#properties}}
+        <li class='property-list-item'>
+          <a href="#properties/{{id}}">
+            <img src="{{thumb}}" /> 
+          </a>
+          <span>
+            {{description}}<br />
+          </span>
+          <span>
+            Address: <br />
+            {{street}}<br /> 
+            {{city}}, {{state}} {{zip}}<br />
+          </span>
+          <span>
+            Price: {{price}}
+          </span>
+        </li>
+        {{/properties}}
+      </ul>
+    </script>
+    <script type="x-mustache-template" name="show">
+      <div class="show-property">
+        <p>
+          <img src="{{image}}" /> 
+        </p>
+        <p>
+          {{description}}<br />
+        </p>
+        <p>
+          Address: <br />
+          {{street}}<br /> 
+          {{city}}, {{state}} {{zip}}<br />
+        </p>
+        <p>
+          Price: {{price}}
+        </p>
+      </div>
+    </script>
+    <script src="../application.js"></script>
+    <script src="../app/models/property.js"></script>	
+		<script src="../app/models/property_collection.js"></script>
+    <script src="../app/controllers/properties_controller.js"></script>
+		<script src="../app/controllers/searches_controller.js"></script>
+		<script src="../app/helpers/generic.js"></script>
+    <script src="../app/views/search.js"></script>
+    <script src="../app/views/searchResults.js"></script>
+    <script src="../app/views/index.js"></script>
+    <script src="../app/views/show.js"></script>
+<script>
+	console.log("loading!");
+</script>
+  </head>
+<body>
+  <h1><a href="index.html">PropertyFax</a></h1>
+  <h2>A PropertyFax Application by loop/recur</h2>
+  <div id="notice"></div>
+	<form action="#search" method="get">
+    <p>
+      <label for="property-search">Search Properties</label>
+      <input type="text" name="term" id="property-search" />
+    </p>
+    <p>
+      <input type="submit" value="Submit" id="submit" />
+    </p>
+	</form>
+
+  <div id="app"></div>
+
+  <script type="text/javascript">
+      $(function() {
+          PropertyFax.init();
+      });
+  </script>
+</body>
+</html>
