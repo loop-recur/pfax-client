@@ -9,7 +9,7 @@ PropertyFax.Controllers.Properties = Backbone.Controller.extend({
 
     properties.fetch({
       success : function() {
-        new PropertyFax.Views.Index({ properties: properties });
+        new PropertyFax.Views.Properties.index({ properties: properties });
       },
       error: function() {
         new Error({ message: 'Could not find any properties.' });
@@ -23,7 +23,7 @@ PropertyFax.Controllers.Properties = Backbone.Controller.extend({
 
     property.fetch({
       success: function(model, resp) {
-        new PropertyFax.Views.Show({ model: property });
+        new PropertyFax.Views.Properties.show({ model: property });
       },
       error: function() {
         new Error({ message: 'Could not find that property.' });

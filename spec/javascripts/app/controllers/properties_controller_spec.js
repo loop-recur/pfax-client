@@ -1,35 +1,54 @@
 describe('PropertiesController', function() {
-	beforeEach(function() {
-		this.server = sinon.fakeServer.create();
-		this.server.respondWith("GET", "/properties", [200, {"Content-Type": "application/json"},'{"id":"1"}']);
-		Render = sinon.spy();
-		loadFixtures('layouts/index.html');
-	  this.controller = new PropertyFax.Controllers.Properties();
-	});
+	var controller;
 	
-	afterEach(function() {
-	  this.server.restore();
+	beforeEach(function() {
+	  controller = new PropertyFax.Controllers.Properties();
 	});
 	
 	describe("GET to index", function() {
-		beforeEach(function() {
-			this.fakeCollection = {fetch: jasmine.createSpy("fetch").andCallFake(function(obj){ return obj.success(); }) };
-			this.collection = sinon.stub(window, "PropertyCollection");
-			this.collection.returns(this.fakeCollection);
-			this.controller.index();
+		describe("success", function() {
+		  it("it gets properties", function() {
+				expect(PropertyCollection).toFetch(controller.index);
+		  });
+
+		  it("it renders the index template", function() {
+				expect(PropertyCollection).toRender("properties-index", controller.index);
+		  });
 		});
 		
-		afterEach(function() {
-		  PropertyCollection.restore();
+		describe("error", function() {
+		  it("it shows an error", function() {
+				expect(PropertyCollection).toShowError('Could not find any properties.', controller.index);
+		  });
+
+		  it("it doesn't render the index template", function() {
+				expect(PropertyCollection).not.toRender("properties-index", controller.index, {error : true});
+		  });
 		});
 		
-		it("it gets properties", function() {
-			expect(this.fakeCollection.fetch).toHaveBeenCalled();
-	  });
+	});
 	
-	  it("it renders the index template", function() {
-			expect(Render).toHaveBeenCalledWith("index");
-	  });
+	describe("GET to show", function() {
+		
+		describe("success", function() {
+		  it("it calls fetch", function() {
+				expect(Property).toFetch(controller.show);
+		  });
+
+		  it("it renders the show template", function() {
+				expect(Property).toRender("properties-show", controller.show);
+		  });
+		});
+	
+		describe("error", function() {
+		  it("it shows an error", function() {
+				expect(Property).toShowError('Could not find that property.', controller.show);
+		  });
+
+		  it("it doesn't render the index template", function() {
+				expect(Property).not.toRender("properties-show", controller.show, {error : true});
+		  });
+		});
 	});
 
 });

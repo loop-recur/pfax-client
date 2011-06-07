@@ -1,13 +1,11 @@
-PropertyFax.Views.Show = Backbone.View.extend({
+PropertyFax.Views.Properties.show = Backbone.View.extend({
   initialize: function() {
     this.property = $.extend(this.options.model, this.options.model.attributes);
     this.render();
   },
 
-  template: $('script[name=show]').html(),
-
   render: function() {
-    var property = Mustache.to_html(this.template, this.property);
+    var property = Render("properties-show", this.property);
     $('#app').html(property);
   }
 });

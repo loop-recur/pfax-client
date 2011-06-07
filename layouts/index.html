@@ -6,7 +6,7 @@
     <script src="../libs/backbone.js"></script>
     <script src="../libs/mustache.js"></script>
 		<script src="../libs/query_string.js"></script>
-    <script type="x-mustache-template" name="index">
+    <script type="x-mustache-template" name="properties-index">
       <ul>
         {{#properties}}
         <li class='property-list-item'>
@@ -28,7 +28,7 @@
         {{/properties}}
       </ul>
     </script>
-    <script type="x-mustache-template" name="show">
+    <script type="x-mustache-template" name="properties-show">
       <div class="show-property">
         <p>
           <img src="{{image}}" /> 
@@ -53,13 +53,9 @@
 		<script src="../app/models/property_collection.js"></script>
     <script src="../app/controllers/properties_controller.js"></script>
 		<script src="../app/controllers/searches_controller.js"></script>
-    <script src="../app/views/search.js"></script>
-    <script src="../app/views/searchResults.js"></script>
-    <script src="../app/views/index.js"></script>
-    <script src="../app/views/show.js"></script>
-<script>
-	console.log("loading!");
-</script>
+    <script src="../app/views/searches/show.js"></script>
+    <script src="../app/views/properties/index.js"></script>
+    <script src="../app/views/properties/show.js"></script>
   </head>
 <body>
   <h1><a href="index.html">PropertyFax</a></h1>
