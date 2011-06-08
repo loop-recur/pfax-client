@@ -1,11 +1,10 @@
 var PropertyFax = {
-  Views: {},
+  Views: { Properties: {}, Searches: {}},
   Controllers: {},
   init: function() {
-    propertiesController = new PropertyFax.Controllers.Properties();
-		searchesController = new PropertyFax.Controllers.Searches();
+    var propertiesController = new PropertyFax.Controllers.Properties();
+		Backbone.history.start();
 		propertiesController.index();
-    Backbone.history.start();
   }
 };
 

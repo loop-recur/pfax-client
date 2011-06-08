@@ -7,4 +7,9 @@ var PropertyCollection = Backbone.Collection.extend({
 	  if(isBlank(term)) return this.base_url;
    	return this.base_url + "?term="+term;
   },
+
+  comparator: function(property) {
+    return property.get('price_in_cents');
+  }
+
 });

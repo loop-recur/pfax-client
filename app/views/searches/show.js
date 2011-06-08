@@ -1,5 +1,3 @@
-if(!PropertyFax.Views.Searches) PropertyFax.Views.Searches = {};
-
 PropertyFax.Views.Searches.show = Backbone.View.extend({
   initialize: function() {
     this.properties = this.options.searchProperties.models;

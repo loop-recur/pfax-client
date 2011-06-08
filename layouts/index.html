@@ -6,6 +6,7 @@
     <script src="../libs/backbone.js"></script>
     <script src="../libs/mustache.js"></script>
 		<script src="../libs/query_string.js"></script>
+		<script src="../libs/functional.js"></script>
     <script type="x-mustache-template" name="properties-index">
       <ul>
         {{#properties}}
@@ -46,8 +47,22 @@
         </p>
       </div>
     </script>
+		<script type="x-mustache-template" name="filters">
+			<label for="over_4">
+				<input id="over_4" type="checkbox" />
+				Over 400000
+			</label>
+			<br>
+			<select id="zip">
+				<option value="all" selected="selected">All</option>
+				{{#properties}}
+					<option value="{{zip}}">{{zip}}</option>
+	      {{/properties}}
+     </select>
+		 <label for="zip">Zip</label>
+		</script>
     <script src="../application.js"></script>
-		<script src="../lib/render.js"></script>
+		<script src="../app/lib/render.js"></script>
 		<script src="../app/helpers/generic.js"></script>
     <script src="../app/models/property.js"></script>
 		<script src="../app/models/property_collection.js"></script>
@@ -56,6 +71,7 @@
     <script src="../app/views/searches/show.js"></script>
     <script src="../app/views/properties/index.js"></script>
     <script src="../app/views/properties/show.js"></script>
+		<script src="../app/views/properties/filters.js"></script>
   </head>
 <body>
   <h1><a href="index.html">PropertyFax</a></h1>
@@ -70,6 +86,8 @@
       <input type="submit" value="Submit" id="submit" />
     </p>
 	</form>
+	
+	<div id="filters"></div>
 
   <div id="app"></div>
 

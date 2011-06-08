@@ -10,6 +10,7 @@ PropertyFax.Controllers.Properties = Backbone.Controller.extend({
     properties.fetch({
       success : function() {
         new PropertyFax.Views.Properties.index({ properties: properties });
+				new PropertyFax.Views.Properties.filters({ properties: properties });
       },
       error: function() {
         new Error({ message: 'Could not find any properties.' });

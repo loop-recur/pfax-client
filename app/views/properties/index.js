@@ -1,5 +1,3 @@
-if(!PropertyFax.Views.Properties) PropertyFax.Views.Properties = {};
-
 PropertyFax.Views.Properties.index = Backbone.View.extend({
   initialize: function() {
     this.properties = this.options.properties.models;

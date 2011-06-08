@@ -4,9 +4,6 @@ beforeEach(function() {
 	this.server = sinon.fakeServer.create();
 	this.server.respondWith("GET", "/properties", [200, {"Content-Type": "application/json"},'{"id":"1"}']);
 	
-	Render = sinon.spy();
-	loadFixtures('layouts/index.html');
-	
 	this.addMatchers({
     toFetch: function(fun) {
 			sinon.mock(this.actual.prototype).expects("fetch").once();
@@ -15,6 +12,7 @@ beforeEach(function() {
     },
 
     toRender: function(template, fun, obj) {
+			Render = sinon.spy();
 			if(obj && obj.error) {
 				this.actual.prototype.fetch = jasmine.createSpy("fetch").andCallFake(function(obj){ return obj.error(); });
 				fun();
@@ -25,7 +23,8 @@ beforeEach(function() {
 				fun();
 				expect(Render).toHaveBeenCalledWith(template);
 				return true;
-			}			
+			}
+			Render.restore();
     },
 
 		toShowError: function(msg, fun) {
