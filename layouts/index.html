@@ -26,6 +26,8 @@
             Price: {{price}}
           </span>
         </li>
+        <a href="#add/{{id}}/tagItem">Add Tag Item</a>
+        <a href="#add/{{id}}/mapItem">Add Map Item</a>
         {{/properties}}
       </ul>
     </script>
@@ -65,8 +67,10 @@
 		<script src="../app/lib/render.js"></script>
 		<script src="../app/helpers/generic.js"></script>
     <script src="../app/models/property.js"></script>
+    <script src="../app/models/cart.js"></script>
 		<script src="../app/models/property_collection.js"></script>
     <script src="../app/controllers/properties_controller.js"></script>
+    <script src="../app/controllers/cart_controller.js"></script>
 		<script src="../app/controllers/searches_controller.js"></script>
     <script src="../app/views/searches/show.js"></script>
     <script src="../app/views/properties/index.js"></script>
