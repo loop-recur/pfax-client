@@ -5,9 +5,12 @@
     <script src="../libs/underscore.js"></script>
     <script src="../libs/backbone.js"></script>
     <script src="../libs/mustache.js"></script>
-		<script src="../libs/query_string.js"></script>
-		<script src="../libs/functional.js"></script>
+	  <script src="../libs/query_string.js"></script>
+	 <!-- <script src="../libs/functional.js"></script>-->
     <script type="x-mustache-template" name="properties-index">
+    Results
+    <hr />
+    <input type="checkbox" value="" /> Select All
       <ul>
         {{#properties}}
         <li class='property-list-item'>
@@ -26,10 +29,15 @@
             Price: {{price}}
           </span>
         </li>
-        <a href="#add/{{id}}/tagItem">Add Tag Item</a>
-        <a href="#add/{{id}}/mapItem">Add Map Item</a>
+        <a href="?taxItem={{id}}#add">Add Tag Item</a>
+        <a href="?mapItem={{id}}#add">Add Map Item</a>
+        <input type="checkbox" value="{{id}" /> add to selection
         {{/properties}}
       </ul>
+      <hr />
+      <a href="#">Map All Checked</a>
+      <a href="#">Tag All Checked</a>
+      <button type="button">Order Now</button>
     </script>
     <script type="x-mustache-template" name="properties-show">
       <div class="show-property">
@@ -67,6 +75,9 @@
 		<script src="../app/lib/render.js"></script>
 		<script src="../app/helpers/generic.js"></script>
     <script src="../app/models/property.js"></script>
+    <script src="../app/models/cart_item.js"></script>
+    <script src="../app/models/tax_item.js"></script>
+    <script src="../app/models/map_item.js"></script>
     <script src="../app/models/cart.js"></script>
 		<script src="../app/models/property_collection.js"></script>
     <script src="../app/controllers/properties_controller.js"></script>

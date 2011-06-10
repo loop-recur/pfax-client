@@ -1,5 +1,5 @@
 describe('Property', function() {
-	var property
+	var property;
 	
 	beforeEach(function() {
 	  property = new Property({id: 2, street: "123 blah st."});

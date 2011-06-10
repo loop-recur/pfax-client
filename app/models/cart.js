@@ -1,58 +1,67 @@
 var Cart = Backbone.Model.extend({
   initialize: function() {
-    // List of Property Ids
-    this.tagItems = this.attributes.tagItems || [],
-    this.mapItems = this.attributes.mapItems || []
+    this.taxItems = this.attributes.taxItems || [];
+    this.mapItems = this.attributes.mapItems || [];
   },
 
-  addTagItem: function(propertyId) {
-    this.tagItems.push(propertyId);
-   // if (this._cartHasItem(this.tagItems, propertyId)) {
-   //   this._incrementTagItemQuantity();
-   // } else {
-   //   this.tagItems.push(new TagItem({propertyId: id, quantity: 1}));
-   // }
+  addTaxItem: function(propertyIds) {
+   var that = this, 
+       properties = propertyIds.split(",");
+
+   _.each(properties, function(id) { that.taxItems.push(new TaxItem({propertyId : id})) });
   },
 
-  addMapItem: function(propertyId) {
-    this.mapItems.push(propertyId);
-   // if (this._cartHasItem(this.mapItems, propertyId)) {
-   //   this._incrementMapItemQuantity();
-   // } else {
-   //   this.mapItems.push(new MapItem({propertyId: id, quantity: 1}));
-   // }
-  },
-
-  _cartHasItem: function(itemCollection, propertyId) {
-    //var items = itemCollection;
-    //$(this.items).each(function() {
-    //  ($(this).propertyId == propertyId) ? return true : return false;
-    //  }
-   // }
-  },
-
-  _incrementTagItemQuantity: function() {
+  removeTaxItem: function(propertyIds) {
+   var that = this, 
+       properties = propertyIds.split(",");
     
-
+    $(this.taxItems).each(function(index, elem) {
+      var i = index, el = elem;
+      $(properties).each(function() {
+        if (this == el.propertyId) {
+          that.taxItems.splice(i,1);
+        }
+      });
+    });
   },
 
-  _incrementMapItemQuantity: function() {
+  addMapItem: function(propertyIds) {
+   var that = this, 
+       properties = propertyIds.split(",");
 
+  console.log(propertyIds);
+   _.each(properties, function(id) { that.mapItems.push(new MapItem({propertyId : id})) });
   },
 
-  totalPrice: function() {
-   // return this.totalItems() * 2.99;
+  removeMapItem: function(propertyIds) {
+   var that = this, 
+       properties = propertyIds.split(","),
+       items = this.mapItems, 
+       n = 0;
+
+        // brute force for now
+    while (n < properties.length) { 
+    $(items).each(function(index, elem) {
+      var i = index, el = elem;
+      $(properties).each(function() {
+        if (this == el.propertyId) {
+          items.splice(i,1);
+        }
+      });
+    });
+    n++;
+  }
   },
 
-  totalTagItems: function() {
-    // return this.tagItems.length;
+  totalTaxItems: function() {
+   return this.taxItems.length;
   },
 
   totalMapItems: function() {
-    // return this.mapItems.length;
+   return this.mapItems.length;
   },
 
-  totalItems: function() {
-    // return this.mapItems.length + this.tagItems.length;
+  totalCartItems: function() {
+    return this.mapItems.length + this.taxItems.length;
   }
 });
