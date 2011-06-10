@@ -8,12 +8,12 @@ describe('PropertyCollection', function() {
 	});
 	
 	it("returns the url if there's a term", function() {
-		QueryString = function(){ return { getValue: function(){ return "some_term" } } };
+		QueryString = (function(){ return { getValue: function(){ return "some_term" } } })();
 		expect(collection.url()).toEqual(root_url("/properties?term=some_term"));
 	});
 	
 	it("returns the url if there's not a term", function() {
-		QueryString = function(){ return { getValue: function(){ return "" } } };
+		QueryString = (function(){ return { getValue: function(){ return "" } } })();
 		expect(collection.url()).toEqual(root_url("/properties"));
 	});
 		

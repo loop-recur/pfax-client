@@ -2,11 +2,11 @@
 <html>
   <head>
     <script src="../libs/jquery-1.6.1.js"></script>
+	 	<script src="../libs/functional.js"></script>
     <script src="../libs/underscore.js"></script>
     <script src="../libs/backbone.js"></script>
     <script src="../libs/mustache.js"></script>
 	  <script src="../libs/query_string.js"></script>
-	 <!-- <script src="../libs/functional.js"></script>-->
     <script type="x-mustache-template" name="properties-index">
     Results
     <hr />
@@ -29,8 +29,8 @@
             Price: {{price}}
           </span>
         </li>
-        <a href="?taxItem={{id}}#add">Add Tag Item</a>
-        <a href="?mapItem={{id}}#add">Add Map Item</a>
+        <a href="#update/taxItem/{{id}}">Add Tag Item</a>
+        <a href="#update/mapItem/{{id}}">Add Map Item</a>
         <input type="checkbox" value="{{id}" /> add to selection
         {{/properties}}
       </ul>

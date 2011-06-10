@@ -1,34 +1,31 @@
 PropertyFax.Controllers.Cart = Backbone.Controller.extend({
   routes: {
-    "add" : "addItem",
-    "remove" : "removeItem",
-    "emptyCart" : "clearAllItems"
+    "update/:kind/:id" : "update",
+    "destroy" : "destroy",
+    "new" : "new"
   },
   
-  displayCartItems: function() {
+  show: function() {
 
   },
 
-  addItem: function() {
-		var taxItem = QueryString().getValue("taxItem"),
-        mapItem = QueryString().getValue("mapItem"),
-        cart = PropertyFax.cart;
-        console.log(mapItem);
+  update: function(kind, id) {
+		var cart = PropertyFax.cart;
 
-    if (taxItem) cart.addTaxItem(taxItem);
-    if (mapItem) cart.addMapItem(mapItem);
+    if (kind == 'taxItem') cart.addTaxItem(id);
+    if (kind == 'mapItem') cart.addMapItem(id);
   },
 
-  removeItem: function() {
-		var taxItem = QueryString().getValue("taxItem"),
-        mapItem = QueryString().getValue("mapItem"),
+  destroy: function() {
+		var taxItem = QueryString.getValue("taxItem"),
+        mapItem = QueryString.getValue("mapItem"),
         cart = PropertyFax.cart;
 
     if (taxItem) cart.removeTaxItem(taxItem);
     if (mapItem) cart.removeMapItem(mapItem);
   },
 
-  clearAllItems: function() {
+  new: function() {
     PropertyFax.cart = new Cart();
   }
 });

@@ -6,4 +6,4 @@ var QueryString = function() {
 	}
 	
 	return {getValue: getValue};
-}
+}();

@@ -3,7 +3,7 @@ var PropertyCollection = Backbone.Collection.extend({
 	base_url: root_url('properties'),
 
   url : function() {
-		var term = QueryString().getValue("term");
+		var term = QueryString.getValue("term");
 	  if(isBlank(term)) return this.base_url;
    	return this.base_url + "?term="+term;
   },
