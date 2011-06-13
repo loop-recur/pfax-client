@@ -1,54 +1,68 @@
 describe('PropertiesController', function() {
-	var controller;
-	
 	beforeEach(function() {
-	  controller = new PropertyFax.Controllers.Properties();
+		new PropertyFax.Controllers.Properties();
 	});
 	
 	describe("GET to index", function() {
+		var do_get = function(){ Aladdin.get("properties"); };
+		
 		describe("success", function() {
 		  it("it gets properties", function() {
-				expect(PropertyCollection).toFetch(controller.index);
+				expect(do_get).toFetchWith(PropertyCollection);
 		  });
 
 		  it("it renders the index template", function() {
-				expect(PropertyCollection).toRender("properties-index", controller.index);
+				stubFetch(PropertyCollection);
+				do_get();
+				expect(Render).toHaveBeenCalledWith("properties-index");
 		  });
 		});
 		
 		describe("error", function() {
+			beforeEach(function() {
+			  stubFetch(PropertyCollection, {error : true});
+				do_get();
+			});
+			
 		  it("it shows an error", function() {
-				expect(PropertyCollection).toShowError('Could not find any properties.', controller.index);
+				expect(Error).toHaveBeenCalledWith({message: 'Could not find any properties.'});
 		  });
 
 		  it("it doesn't render the index template", function() {
-				expect(PropertyCollection).not.toRender("properties-index", controller.index, {error : true});
+				expect(Render).not.toHaveBeenCalledWith("properties-index");
 		  });
 		});
 		
 	});
 	
 	describe("GET to show", function() {
+		var do_get = function(){ Aladdin.get("properties/1") };
 		
 		describe("success", function() {
 		  it("it calls fetch", function() {
-				expect(Property).toFetch(controller.show);
+				expect(do_get).toFetchWith(Property);
 		  });
 
 		  it("it renders the show template", function() {
-				expect(Property).toRender("properties-show", controller.show);
+				stubFetch(Property);
+				do_get();
+				expect(Render).toHaveBeenCalledWith("properties-show");
 		  });
 		});
 	
 		describe("error", function() {
-		  it("it shows an error", function() {
-				expect(Property).toShowError('Could not find that property.', controller.show);
+			beforeEach(function() {
+			  stubFetch(Property, {error : true});
+				do_get();
+			});
+			
+		  it("it shows an error", function() {	
+				expect(Error).toHaveBeenCalledWith({message: 'Could not find that property.'});
 		  });
 
 		  it("it doesn't render the index template", function() {
-				expect(Property).not.toRender("properties-show", controller.show, {error : true});
+				expect(Render).not.toHaveBeenCalledWith("properties-show");
 		  });
 		});
 	});
-
 });

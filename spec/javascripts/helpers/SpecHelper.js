@@ -9,45 +9,30 @@ var Aladdin = function() {
 	return {get: get}
 }();
 
+// function is still called from sinon and jquery template doesn't exist so overwrite.
+var Render = function(){}
+
+var stubFetch = function(obj, options) {
+	obj.prototype.fetch = jasmine.createSpy("fetch").andCallFake(function(o){ return options ? o.error() : o.success(); });
+}
 
 beforeEach(function() {
 	this.server = sinon.fakeServer.create();
 	this.server.respondWith("GET", "/properties", [200, {"Content-Type": "application/json"},'{"id":"1"}']);
+	sinon.spy(window, "Render");
+	sinon.spy(window, "Error");
 	
 	this.addMatchers({
-    toFetch: function(fun) {
-			sinon.mock(this.actual.prototype).expects("fetch").once();
-			fun();
+    toFetchWith: function(fetcher) {
+			sinon.mock(fetcher.prototype).expects("fetch").once();
+			this.actual();
 			return true;
-    },
-
-    toRender: function(template, fun, obj) {
-			Render = sinon.spy();
-			if(obj && obj.error) {
-				this.actual.prototype.fetch = jasmine.createSpy("fetch").andCallFake(function(obj){ return obj.error(); });
-				fun();
-				expect(Render).not.toHaveBeenCalledWith(template);
-				return false;
-			} else {
-				this.actual.prototype.fetch = jasmine.createSpy("fetch").andCallFake(function(obj){ return obj.success(); });
-				fun();
-				expect(Render).toHaveBeenCalledWith(template);
-				return true;
-			}
-			// Render.restore();
-    },
-
-		toShowError: function(msg, fun) {
-			sinon.spy(window, "Error");
-			this.actual.prototype.fetch = jasmine.createSpy("fetch").andCallFake(function(obj){ return obj.error(); });
-			fun();
-			expect(Error).toHaveBeenCalledWith({message: msg});
-			Error.restore();
-			return true;
-		}
+    }
   });
 });
 
 afterEach(function() {
   this.server.restore();
+	Render.restore();
+	Error.restore();
 });
