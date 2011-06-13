@@ -693,8 +693,10 @@
         this.iframe = $('<iframe src="javascript:0" tabindex="-1" />').hide().appendTo('body')[0].contentWindow;
       }
       if ('onhashchange' in window && !oldIE) {
+				console.log('binding hashchange');
         $(window).bind('hashchange', this.checkUrl);
       } else {
+				console.log('interval');
         setInterval(this.checkUrl, this.interval);
       }
       return this.loadUrl();

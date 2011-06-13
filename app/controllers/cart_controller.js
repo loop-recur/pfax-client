@@ -10,6 +10,7 @@ PropertyFax.Controllers.Cart = Backbone.Controller.extend({
   },
 
   update: function(kind, id) {
+	console.log("in updat");
 		var cart = PropertyFax.cart;
 
     if (kind == 'taxItem') cart.addTaxItem(id);

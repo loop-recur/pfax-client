@@ -32,9 +32,9 @@ describe('Filters', function() {
 		
 		beforeEach(function() {
 		  element = $("<select />",{id:"zip"})
-								.append($("<option />", {value: "all"}))
-								.append($("<option />", {value: "94010"}))
-								.append($("<option />", {value: "94011"}));
+		  								.append($("<option />", {value: "all"}))
+		  								.append($("<option />", {value: "94010"}))
+		  								.append($("<option />", {value: "94011"}));
 			$(view.el).html(element);
 		});
 

@@ -1,5 +1,15 @@
 // Probably expand this stuff into a module soon.  Especially matchers
 
+var Aladdin = function() {
+	function get(route) {
+		window.location.hash = route;
+		Backbone.history.start();
+	}
+	
+	return {get: get}
+}();
+
+
 beforeEach(function() {
 	this.server = sinon.fakeServer.create();
 	this.server.respondWith("GET", "/properties", [200, {"Content-Type": "application/json"},'{"id":"1"}']);
@@ -24,7 +34,7 @@ beforeEach(function() {
 				expect(Render).toHaveBeenCalledWith(template);
 				return true;
 			}
-			Render.restore();
+			// Render.restore();
     },
 
 		toShowError: function(msg, fun) {
