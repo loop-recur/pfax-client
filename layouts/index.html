@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <link href="../stylesheets/basic.css" rel="stylesheet" type="text/css" />
     <script src="../libs/jquery-1.6.1.js"></script>
+		<script src="../libs/functional.js"></script>
     <script src="../libs/underscore.js"></script>
     <script src="../libs/backbone.js"></script>
     <script src="../libs/mustache.js"></script>
 		<script src="../libs/query_string.js"></script>
-		<script src="../libs/functional.js"></script>
-    <script type="x-mustache-template" name="properties-index">
+    <script type="x-mustache-template" name="properties-partial">
       <ul>
         {{#properties}}
         <li class='property-list-item'>
@@ -61,6 +62,61 @@
      </select>
 		 <label for="zip">Zip</label>
 		</script>
+    <script type="x-mustache-template" name="search-index">
+      <span>sort by:</span>
+      <select>
+        <option value="priceLowToHigh">price (low to high)</option>
+        <option value="priceHighToLow">price (high to low)</option>
+      </select>
+
+      <button type="button">Data Report All Checked</button>
+      <button type="button">Data/Map Report All Checked</button>
+      <input type="checkbox" name="properties" value="all" />Select All
+      <ul>
+        {{#properties}}
+        <li id="property-{{id}}" class="property-list-item">
+          <a href="#properties/{{id}}">
+            <img src="{{thumb}}" /> 
+          </a>
+          <span>
+            {{description}}<br />
+          </span>
+          <span>
+            Address: <br />
+            {{street}}<br /> 
+            {{city}}, {{state}} {{zip}}<br />
+          </span>
+          <span>
+            Price: {{price}}
+          </span>
+          <button type="button">Data Report</button>
+          <button type="button">Map Report</button>
+          <input type="checkbox" name="property" value={{id}} />add to selection
+        </li>
+        {{/properties}}
+      </ul>
+    </script>
+    <script type="x-mustache-template" name="property-stats">
+      <button type="button" id="assessment-button">Assessment Tab</button>
+      <button type="button" id="mls-button">MLS Data</button>
+      <button type="button" id="owners-button">Owners</button>
+      <button type="button" id="sales-history-button">Sales History</button>
+      <button type="button" id="sales-button">Sales</button>
+      <button type="button" id="show-map-button">Show Map</button><br /><br />
+      <div id="property-stats-inner">
+          <span>
+            {{description}}<br />
+          </span>
+          <span>
+            Address: <br />
+            {{street}}<br /> 
+            {{city}}, {{state}} {{zip}}<br />
+          </span>
+          <span>
+            Price: {{price}}
+          </span>
+      </div>
+    </script>
     <script src="../application.js"></script>
 		<script src="../app/lib/render.js"></script>
 		<script src="../app/helpers/generic.js"></script>
@@ -68,33 +124,45 @@
 		<script src="../app/models/property_collection.js"></script>
     <script src="../app/controllers/properties_controller.js"></script>
 		<script src="../app/controllers/searches_controller.js"></script>
-    <script src="../app/views/searches/show.js"></script>
-    <script src="../app/views/properties/index.js"></script>
     <script src="../app/views/properties/show.js"></script>
 		<script src="../app/views/properties/filters.js"></script>
   </head>
 <body>
-  <h1><a href="index.html">PropertyFax</a></h1>
-  <h2>A PropertyFax Application by loop/recur</h2>
+<header>
+  <h1><a href="index.html">NJ PropertyFax</a></h1>
+  <nav>
+    <a href="#">HOME</a>
+    <a href="#">TOOLS</a>
+    <a href="#">MY PROFILE</a>
+  <span>You are currently logged in as <a href="#">Ryan C.</a>&nbsp;&nbsp;<a href="#">Logout</a></span>
+  </nav>
+
   <div id="notice"></div>
-	<form action="#search" method="get">
-    <p>
-      <label for="property-search">Search Properties</label>
-      <input type="text" name="term" id="property-search" />
-    </p>
-    <p>
-      <input type="submit" value="Submit" id="submit" />
-    </p>
-	</form>
-	
+  <div id="search-form">
+    <form action="#search" method="get">
+      <p>
+        <input type="text" name="term" id="property-search" />
+        <input type="submit" value="Search" id="submit" />
+      </p>
+    </form>
+  </div>
+</header>
+<div id="container">
 	<div id="filters"></div>
 
   <div id="app"></div>
+  <div id="search-results"></div>
+  <div id="property-stats"></div>
 
   <script type="text/javascript">
       $(function() {
           PropertyFax.init();
       });
   </script>
+  <script src="../app/views/properties/index.js"></script>
+  <script src="../app/views/properties/stats.js"></script>
+  <script src="../app/views/searches/show.js"></script>
+</div>
+<footer> &copy; PropertyFax 2011 </footer>
 </body>
 </html>
