@@ -7,7 +7,7 @@ PropertyFax.Views.Properties.index = Backbone.View.extend({
   },
   
   render: function() {
-    var propertyList = Render("properties-partial", { properties : this.properties });
+    var propertyList = Render("properties-index", { properties : this.properties });
     this.el.html(propertyList);
   }
 });

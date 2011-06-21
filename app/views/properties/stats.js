@@ -1,9 +1,9 @@
 PropertyFax.Views.Properties.stats = Backbone.View.extend({
   el: $('#property-stats'),
 
-
   initialize: function() {
     this.property = this.options.property;
+    this.city = this.property.get("city");
     this.render();
     this.propertyStatsInner = $('#property-stats-inner');
   },
@@ -19,38 +19,31 @@ PropertyFax.Views.Properties.stats = Backbone.View.extend({
   
   render: function() {
     $('#property-stats').show();
-    var propertyStat = Render("property-stats", this.property.attributes );
+    var propertyStat = Render("property-stats", this.property );
     this.el.html(propertyStat);
   },
 
   showAssessmentData: function() {
-    var assessment = "<p>Assessment Data of " + this.property.get("city") + "</p>"
-    this.propertyStatsInner.html(assessment);
+    this.propertyStatsInner.html("Assessment Data of " + this.city);
   },
 
   showMlsData: function() {
-    var mls = "<p>MLS Data of " + this.property.get("city") + "</p>"
-    this.propertyStatsInner.html(mls);
+    this.propertyStatsInner.html("MLS Data of " + this.city);
   },
 
   showOwnersData: function() {
-    var owners = "<p>Owners Data of " + this.property.get("city") + "</p>"
-    this.propertyStatsInner.html(owners);
+    this.propertyStatsInner.html("Owners Data of " + this.city);
   },
 
   showSalesHistoryData: function() {
-    var salesHistory = "<p>Sales History Data of " + this.property.get("city") + "</p>"
-    this.propertyStatsInner.html(salesHistory);
-
+    this.propertyStatsInner.html("Sales History Data of " + this.city);
   },
 
   showSalesData: function() {
-    var sales = "<p>Sales Data of " + this.property.get("city") + "</p>"
-    this.propertyStatsInner.html(sales);
+    this.propertyStatsInner.html("Sales Data of " + this.city);
   },
 
   showMapData: function() {
-    var map = "<p>Map Data of " + this.property.get("city") + "</p>"
-    this.propertyStatsInner.html(map);
+    this.propertyStatsInner.html("Map Data of " + this.city);
   }
 });

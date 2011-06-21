@@ -21,12 +21,12 @@ PropertyFax.Views.Searches.show = Backbone.View.extend({
   },
 
   renderPropertyStat: function(e) {
-    var regex = /\d+/,
-        propertyId = e.currentTarget.id.match(regex)[0],
+    var propertyId = e.currentTarget.id,
         property = new Property({ id: propertyId });
 
     property.fetch({
-      success: function() {
+      success: function(model, response) {
+        property = $.extend(model, response);
         new PropertyFax.Views.Properties.stats({ property: property });
       },
       error: function() {
@@ -36,27 +36,22 @@ PropertyFax.Views.Searches.show = Backbone.View.extend({
     });
   },
 
-  sortProperties: function(e) {
-    var sortOrder = e.currentTarget.value;
-
-    switch (sortOrder) {
-      case "priceLowToHigh":
+  sortProperties: function() {
+    var sortBy = $('#sort-by').val(), 
+        sortOrder = $('#sort-order').val();
+        
         this.properties.sort(
           function(a,b) {
-            return a.price_in_cents - b.price_in_cents
+            if (sortOrder == "ascending") {  
+              return a[sortBy] > b[sortBy];
+            } else {
+              return a[sortBy] < b[sortBy];
+            }
           }
         );
-        break;
-      case "priceHighToLow":
-        this.properties.sort(
-          function(a,b) {
-            return -(a.price_in_cents - b.price_in_cents)
-          }
-        );
-        break;
-      }
 
       this.render();
-      $('select').val(sortOrder);
+      $('#sort-order').val(sortOrder);
+      $('#sort-by').val(sortBy);
   }
 });

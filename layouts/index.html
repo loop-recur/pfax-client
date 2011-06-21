@@ -8,7 +8,7 @@
     <script src="../libs/backbone.js"></script>
     <script src="../libs/mustache.js"></script>
 		<script src="../libs/query_string.js"></script>
-    <script type="x-mustache-template" name="properties-partial">
+    <script type="x-mustache-template" name="properties-index">
       <ul>
         {{#properties}}
         <li class='property-list-item'>
@@ -64,9 +64,13 @@
 		</script>
     <script type="x-mustache-template" name="search-index">
       <span>sort by:</span>
-      <select>
-        <option value="priceLowToHigh">price (low to high)</option>
-        <option value="priceHighToLow">price (high to low)</option>
+      <select id="sort-by">
+        <option value="price_in_cents">Price</option>
+        <option value="city">City</option>
+      </select>
+      <select id="sort-order">
+        <option value="ascending">Ascending</option>
+        <option value="descending">Descending</option>
       </select>
 
       <button type="button">Data Report All Checked</button>
@@ -74,7 +78,7 @@
       <input type="checkbox" name="properties" value="all" />Select All
       <ul>
         {{#properties}}
-        <li id="property-{{id}}" class="property-list-item">
+        <li id="{{id}}" class="property-list-item">
           <a href="#properties/{{id}}">
             <img src="{{thumb}}" /> 
           </a>
