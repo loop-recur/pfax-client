@@ -5,11 +5,11 @@ PropertyFax.Controllers.Properties = Backbone.Controller.extend({
   },
 
   index: function() {
-   var properties = new PropertyCollection;
+   	var properties = new PropertyCollection;
 
     properties.fetch({
       success : function() {
-        new PropertyFax.Views.Properties.index({ properties: properties });
+        new PropertyFax.Views.Searches.show({ searchProperties : properties });
 				new PropertyFax.Views.Properties.filters({ properties: properties });
       },
       error: function() {

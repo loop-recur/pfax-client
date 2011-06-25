@@ -1,5 +1,5 @@
 PropertyFax.Views.Properties.index = Backbone.View.extend({
-  el: $('#app'),
+  el: $('#search-results'),
 
   initialize: function() {
     this.properties = this.options.properties.models;

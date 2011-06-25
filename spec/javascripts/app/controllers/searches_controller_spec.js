@@ -13,7 +13,7 @@ describe('SearchesController', function() {
 		  });
 
 		  it("it renders the index template", function() {
-				expect(PropertyCollection).toRender("search-index", controller.show);
+				expect(PropertyCollection).toRender("properties-index", controller.show);
 		  });
 		});
 	

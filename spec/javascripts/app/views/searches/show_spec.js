@@ -33,12 +33,12 @@ describe('Show', function() {
       xit("sorts by price ascending", function() {
         sortOrderElement.val("ascending");
         sortByElement.change();
-        expect(Render).toHaveBeenCalledWith("search-index", {properties: items});
+        expect(Render).toHaveBeenCalledWith("properties-index", {properties: items});
       });
       xit("sorts by price descending", function() {
         sortOrderElement.val("descending");
         sortOrderElement.change();
-        expect(Render).toHaveBeenCalledWith("search-index", {properties: items.reverse()});
+        expect(Render).toHaveBeenCalledWith("properties-index", {properties: items.reverse()});
       });
     });
 
@@ -50,13 +50,13 @@ describe('Show', function() {
       xit("sorts by city ascending", function() {
         sortOrderElement.val("ascending");
         sortByElement.change();
-        expect(Render).toHaveBeenCalledWith("search-index", {properties: items});
+        expect(Render).toHaveBeenCalledWith("properties-index", {properties: items});
       });
       
       xit("sorts by city descending", function() {
         sortOrderElement.val("descending");
         sortOrderElement.change();
-        expect(Render).toHaveBeenCalledWith("search-index", {properties: items.reverse()});
+        expect(Render).toHaveBeenCalledWith("properties-index", {properties: items.reverse()});
       });
     });
   });

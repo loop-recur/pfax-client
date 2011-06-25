@@ -10,18 +10,18 @@ describe('Filters', function() {
 		var element;
 		
 		beforeEach(function() {
-		  element = $("<input />",{type: "checkbox", id:"over_4"});
+		  element = $("<input />",{type: "text", id:"price_in_cents"});
 			$(view.el).html(element);
 		});
 
-		it("selects items over 40000000 if the checkbox is on", function() {
-			element.prop("checked", true);
+		it("selects items that equal the price", function() {
+			element.val(30000000);
 			element.change();
-			expect(Render).toHaveBeenCalledWith("properties-index", {properties: [items[1], items[2]]});
+			expect(Render).toHaveBeenCalledWith("properties-index", {properties: [items[0]]});
 		});
 		
-		it("selects all items if the checkbox is false", function() {
-			element.prop("checked", false);
+		it("selects all items if the value is blank", function() {
+			element.val("");
 			element.change();
 			expect(Render).toHaveBeenCalledWith("properties-index", {properties: items});
 		});

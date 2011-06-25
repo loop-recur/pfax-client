@@ -9,12 +9,7 @@ PropertyFax.Views.Properties.stats = Backbone.View.extend({
   },
 
   events: {
-    "click #assessment-button": "showAssessmentData",
-    "click #mls-button": "showMlsData",
-    "click #owners-button": "showOwnersData",
-    "click #sales-history-button": "showSalesHistoryData",
-    "click #sales-button": "showSalesData",
-    "click #show-map-button": "showMapData"
+		"click .tab": "fillTab"
   },
   
   render: function() {
@@ -23,27 +18,12 @@ PropertyFax.Views.Properties.stats = Backbone.View.extend({
     this.el.html(propertyStat);
   },
 
-  showAssessmentData: function() {
-    this.propertyStatsInner.html("Assessment Data of " + this.city);
-  },
+	fillTab: function(e) {
+		var li = $(e.target).parents('li');
+		$('.tab_box_tabs li').removeClass('tab_active');
+		li.addClass('tab_active');
+    this.propertyStatsInner.html(li.attr('id')+" data for " + this.city);
+		return false;
+	}
 
-  showMlsData: function() {
-    this.propertyStatsInner.html("MLS Data of " + this.city);
-  },
-
-  showOwnersData: function() {
-    this.propertyStatsInner.html("Owners Data of " + this.city);
-  },
-
-  showSalesHistoryData: function() {
-    this.propertyStatsInner.html("Sales History Data of " + this.city);
-  },
-
-  showSalesData: function() {
-    this.propertyStatsInner.html("Sales Data of " + this.city);
-  },
-
-  showMapData: function() {
-    this.propertyStatsInner.html("Map Data of " + this.city);
-  }
 });

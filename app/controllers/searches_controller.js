@@ -8,7 +8,8 @@ PropertyFax.Controllers.Searches = Backbone.Controller.extend({
 
     searchProperties.fetch({
       success: function() {
-        new PropertyFax.Views.Searches.show({ searchProperties : searchProperties });     
+        new PropertyFax.Views.Searches.show({ searchProperties : searchProperties });
+				new PropertyFax.Views.Properties.filters({ properties: searchProperties });
       },
       error: function() {
         new Error({ message: 'Could not find any properties.' });

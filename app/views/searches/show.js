@@ -13,10 +13,7 @@ PropertyFax.Views.Searches.show = Backbone.View.extend({
   },
 
   render: function() {
-    $('#app').hide();
-    $('#filters, #search-results').show();
-
-    var propertyList = Render("search-index", { properties : this.properties });
+    var propertyList = Render("properties-index", { properties : this.properties });
     this.el.html(propertyList);
   },
 

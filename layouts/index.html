@@ -1,163 +1,313 @@
 <!DOCTYPE html>
-<html>
-  <head>
-  <link href="../stylesheets/basic.css" rel="stylesheet" type="text/css" />
-    <script src="../libs/jquery-1.6.1.js"></script>
-		<script src="../libs/functional.js"></script>
-    <script src="../libs/underscore.js"></script>
-    <script src="../libs/backbone.js"></script>
-    <script src="../libs/mustache.js"></script>
-		<script src="../libs/query_string.js"></script>
-    <script type="x-mustache-template" name="properties-index">
-      <ul>
-        {{#properties}}
-        <li class='property-list-item'>
-          <a href="#properties/{{id}}">
-            <img src="{{thumb}}" /> 
-          </a>
-          <span>
-            {{description}}<br />
-          </span>
-          <span>
-            Address: <br />
-            {{street}}<br /> 
-            {{city}}, {{state}} {{zip}}<br />
-          </span>
-          <span>
-            Price: {{price}}
-          </span>
-        </li>
-        {{/properties}}
-      </ul>
-    </script>
-    <script type="x-mustache-template" name="properties-show">
-      <div class="show-property">
-        <p>
-          <img src="{{image}}" /> 
-        </p>
-        <p>
-          {{description}}<br />
-        </p>
-        <p>
-          Address: <br />
-          {{street}}<br /> 
-          {{city}}, {{state}} {{zip}}<br />
-        </p>
-        <p>
-          Price: {{price}}
-        </p>
-      </div>
-    </script>
-		<script type="x-mustache-template" name="filters">
-			<label for="over_4">
-				<input id="over_4" type="checkbox" />
-				Over 400000
-			</label>
-			<br>
-			<select id="zip">
-				<option value="all" selected="selected">All</option>
-				{{#properties}}
-					<option value="{{zip}}">{{zip}}</option>
-	      {{/properties}}
-     </select>
-		 <label for="zip">Zip</label>
-		</script>
-    <script type="x-mustache-template" name="search-index">
-      <span>sort by:</span>
-      <select id="sort-by">
-        <option value="price_in_cents">Price</option>
-        <option value="city">City</option>
-      </select>
-      <select id="sort-order">
-        <option value="ascending">Ascending</option>
-        <option value="descending">Descending</option>
-      </select>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Property Fax</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" href="/favicon.ico">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	<link rel="stylesheet" href="../css/style.css?v=2">
+	<link rel="stylesheet" href="../css/south-street/jquery-ui.css">
+	<link href='http://fonts.googleapis.com/css?family=Neuton:regular,italic' rel='stylesheet' type='text/css'>
 
-      <button type="button">Data Report All Checked</button>
-      <button type="button">Data/Map Report All Checked</button>
-      <input type="checkbox" name="properties" value="all" />Select All
-      <ul>
-        {{#properties}}
-        <li id="{{id}}" class="property-list-item">
-          <a href="#properties/{{id}}">
-            <img src="{{thumb}}" /> 
-          </a>
-          <span>
-            {{description}}<br />
-          </span>
-          <span>
-            Address: <br />
-            {{street}}<br /> 
-            {{city}}, {{state}} {{zip}}<br />
-          </span>
-          <span>
-            Price: {{price}}
-          </span>
-          <button type="button">Data Report</button>
-          <button type="button">Map Report</button>
-          <input type="checkbox" name="property" value={{id}} />add to selection
-        </li>
-        {{/properties}}
-      </ul>
-    </script>
-    <script type="x-mustache-template" name="property-stats">
-      <button type="button" id="assessment-button">Assessment Tab</button>
-      <button type="button" id="mls-button">MLS Data</button>
-      <button type="button" id="owners-button">Owners</button>
-      <button type="button" id="sales-history-button">Sales History</button>
-      <button type="button" id="sales-button">Sales</button>
-      <button type="button" id="show-map-button">Show Map</button><br /><br />
-      <div id="property-stats-inner">
-          <span>
-            {{description}}<br />
-          </span>
-          <span>
-            Address: <br />
-            {{street}}<br /> 
-            {{city}}, {{state}} {{zip}}<br />
-          </span>
-          <span>
-            Price: {{price}}
-          </span>
-      </div>
-    </script>
-    <script src="../application.js"></script>
-		<script src="../app/lib/render.js"></script>
-		<script src="../app/helpers/generic.js"></script>
-    <script src="../app/models/property.js"></script>
-		<script src="../app/models/property_collection.js"></script>
-    <script src="../app/controllers/properties_controller.js"></script>
-		<script src="../app/controllers/searches_controller.js"></script>
-    <script src="../app/views/properties/show.js"></script>
-		<script src="../app/views/properties/filters.js"></script>
-  </head>
+	<script src="../libs/modernizr-1.7.min.js"></script>
+  <script src="../libs/jquery-1.6.1.js"></script>
+	<script src="../libs/jquery-ui.js"></script>
+	<script src="../libs/functional.js"></script>
+  <script src="../libs/underscore.js"></script>
+  <script src="../libs/backbone.js"></script>
+  <script src="../libs/mustache.js"></script>
+	<script src="../libs/query_string.js"></script>
+	<script type="x-mustache-template" name="properties-index">
+		<div id="sort_area">
+	    <span>sort by:</span>
+	    <select id="sort-by">
+	      <option value="price_in_cents">Price</option>
+	      <option value="city">City</option>
+	    </select>
+	    <select id="sort-order">
+	      <option value="ascending">Ascending</option>
+	      <option value="descending">Descending</option>
+	    </select>
+		</div>
+    <table class="results_list" width="100%">
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td style="text-align:center;">
+					Select All<br>
+					<input type="checkbox" name="properties" value="all" />
+				</td>
+			</tr>
+      {{#properties}}
+				<tr id="{{id}}" class="property-list-item results">
+					<td>
+						<img src="../img/house.png" />
+					</td>
+					<td>
+						<strong>{{street}}</strong><br /> 
+	          {{city}}, {{state}} {{zip}}<br />
+	          {{county}}
+						<div id="sort_field">
+							<span class="key">Current Owner: </span>
+							<span class="val"><strong>{{owner}}</strong></span>
+						</div>
+					</td>
+					<td>
+						<span>Block: {{block}}</span><br>
+						<span>Lot: {{lot}}</span>
+					</td>
+					<td>
+						<img src="../img/pdf.png" />
+						<img src="../img/map.png" />
+					</td>
+					<td style="text-align:center;">
+						add to selection <br>
+						<input type="checkbox" name="property" value={{id}} />
+					</td>
+				</tr>
+      {{/properties}}
+    </table>
+  </script>
+   <script type="x-mustache-template" name="properties-show">
+     <div class="show-property">
+       <p>
+         <img src="{{image}}" /> 
+       </p>
+       <p>
+         {{description}}<br />
+       </p>
+       <p>
+         Address: <br />
+         {{street}}<br /> 
+         {{city}}, {{state}} {{zip}}<br />
+       </p>
+       <p>
+         Price: {{price}}
+       </p>
+     </div>
+   </script>
+	<script type="x-mustache-template" name="filters">
+	<table>
+		<tr>
+			<td>
+				<label for="tax_year">Tax Year:</label>
+			</td>
+			<td>
+				<select id="tax_year">
+					<option value="all">All</option>
+					{{#properties}}
+						<option value="{{tax_year}}">{{tax_year}}</option>
+			    {{/properties}}
+			  </select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="job_number">Job #: </label>
+			</td>
+			<td>
+				<input id="show_only_condos" type="text" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="block">Block:</label>
+			</td>
+			<td>
+				<input id="block" type="text" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="lot">Lot:</label>
+			</td>
+			<td>
+				<input id="lot" type="text" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="qualifier">Qualifier:</label>
+			</td>
+			<td>
+				<input id="qualifier" type="text" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="street">Street:</label>
+			</td>
+			<td>
+				<input id="street" type="text" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="owner">Owner:</label>
+			</td>
+			<td>
+				<input id="owner" type="text" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="quick_sale">Quick Sale:</label>
+			</td>
+			<td>
+				<input id="quick_sale" type="text" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="slider" data-low=0 data-high=1000 data-key="acerage">
+				<label for="acerage">Acerage:</label>
+				<input type="text" value=200 style="width:40px;" />
+				<input type="text" value=800  style="width:40px;margin-left:60px;" />
+				<div style="margin-top:5px;"></div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="slider" data-low=0 data-high=1000 data-key="sales_amount">
+				<label for="sales_amount">Sales Amount:</label>
+				<input type="text" value=200 style="width:40px;" />
+				<input type="text" value=800  style="width:40px;margin-left:60px;" />
+				<div style="margin-top:5px;"></div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="slider" data-low=1900 data-high=2050 data-key="sales_date" >
+				<label for="sales_date">Sales Date:</label>
+				<input type="text" value=1950 style="width:40px;" />
+				<input type="text" value=2015  style="width:40px;margin-left:60px;" />
+				<div style="margin-top:5px;"></div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input id="show_only_condos" type="checkbox" />
+			</td>
+			<td>
+				<label for="show_only_condos">show only condos</label>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input id="dont_show_condos" type="checkbox" />
+			</td>
+			<td>
+				<label for="dont_show_condos">don&apos;t show condos</label>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input id="show_everything" type="checkbox" checked="checked" />
+			</td>
+			<td>
+				<label for="show_everything">show everything</label>
+			</td>
+		</tr>
+	</table>
+	</script>
+   <script type="x-mustache-template" name="property-stats">
+		<ul class="tab_box_tabs">
+			<li class="tab tab_active" id="assessment"><h4><a href="#">Assessment</a></h4></li>
+		  <li class="tab" id="mls"><h4><a href="#">MLS Data</a></h4></li>
+			<li class="tab" id="owners"><h4><a href="#">Owners</a></h4></li>
+			<li class="tab" id="sales-history"><h4><a href="#">Sales History</a></h4></li>
+			<li class="tab" id="sales"><h4><a href="#">Sales</a></h4></li>
+			<li class="tab" id="show-map"><h4><a href="#">Show Map</a></h4></li>
+		</ul>
+			<div class="tab_box_content">
+				<div id="property-stats-inner">
+	         <span>
+	           {{description}}<br />
+	         </span>
+	         <span>
+	           Address: <br />
+	           {{street}}<br /> 
+	           {{city}}, {{state}} {{zip}}<br />
+	         </span>
+	         <span>
+	           Price: {{price}}
+	         </span>
+	     	</div>
+			</div>
+  </script>
+  <script src="../application.js"></script>
+	<script src="../app/lib/render.js"></script>
+	<script src="../app/helpers/generic.js"></script>
+  <script src="../app/models/property.js"></script>
+	<script src="../app/models/property_collection.js"></script>
+  <script src="../app/controllers/properties_controller.js"></script>
+	<script src="../app/controllers/searches_controller.js"></script>
+  <script src="../app/views/properties/show.js"></script>
+	<script src="../app/views/properties/filters.js"></script>
+</head>
 <body>
-<header>
-  <h1><a href="index.html">NJ PropertyFax</a></h1>
-  <nav>
-    <a href="#">HOME</a>
-    <a href="#">TOOLS</a>
-    <a href="#">MY PROFILE</a>
-  <span>You are currently logged in as <a href="#">Ryan C.</a>&nbsp;&nbsp;<a href="#">Logout</a></span>
-  </nav>
+	
+<div class="wrapper">
 
-  <div id="notice"></div>
-  <div id="search-form">
-    <form action="#search" method="get">
-      <p>
-        <input type="text" name="term" id="property-search" />
-        <input type="submit" value="Search" id="submit" />
-      </p>
-    </form>
-  </div>
-</header>
-<div id="container">
-	<div id="filters"></div>
+	<div class="login_info">You are currently logged in as <a href="#">JJones654</a></div>
 
-  <div id="app"></div>
-  <div id="search-results"></div>
-  <div id="property-stats"></div>
-
+	<header style="topbar">
+		<h1 class="logo ir">New Jersey Property Fax</h1>
+		<nav>
+			<ul>
+				<li class="search_box">
+					<form action="#search" method="get">
+						<input type="text" name="term" id="property-search" class="search_field required" minlength="2" value="enter county, city, or zip code" onfocus='if(this.value=="enter county, city, or zip code"){this.value="";}' />
+		        <input type="submit" name="submit" value="" class="search_button" />	
+			    </form>
+				</li>
+				<li><a class="home ir" href="index.html">Home</a></li>
+				<li><a class="tools ir" href="#">Tools</a></li>
+				<li><a class="myprofile ir"href="#">My Profile</a></li>
+			</ul>
+		</nav>
+	</header>
+	
+	<div class="refine_bar">
+		
+		<section class="selected_location">
+			<h2 class="refine_bar_header">Selected Location</h2>	
+			<form action="#search" method="get">
+				<label for="property-search">Add another location to search</label>
+				<input type="text" name="term" id="property-search" class="search_field required" minlength="2" value="enter county, city, or zip code" onfocus='if(this.value=="enter county, city, or zip code"){this.value="";}' />
+	    </form>
+		</section>
+		
+		<section class="refine_search">
+			<h2 class="refine_bar_header">Refine Search</h2>
+			<div id="filters"></div>
+		</section>
+		
+	</div><!-- end refine_bar -->
+	
+	
+	<div class="results_box">
+		<div id="notice"></div>
+		
+		<div class="sort">
+		</div>
+		
+		<div id="search-results"></div>
+	</div><!-- end results_box -->
+	
+	<div id="property-stats" class="tab_box" style="display:none;"></div>
+	
+	
   <script type="text/javascript">
       $(function() {
           PropertyFax.init();
@@ -166,7 +316,22 @@
   <script src="../app/views/properties/index.js"></script>
   <script src="../app/views/properties/stats.js"></script>
   <script src="../app/views/searches/show.js"></script>
-</div>
-<footer> &copy; PropertyFax 2011 </footer>
+
+	<footer>
+		&#169 2011, Western Technology Group
+	</footer>
+	
+
+</div><!-- end container -->
+	<!--[if lt IE 7 ]>
+	<script src="js/libs/dd_belatedpng.js"></script>
+	<script> DD_belatedPNG.fix('img, .png_bg');</script>
+	<![endif]-->
+	<script>
+		var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
+		(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+		g.src=('https:'==location.protocol?'http://ssl':'http://www')+'.google-analytics.com/ga.js';
+		s.parentNode.insertBefore(g,s)}(document,'script'));
+	</script>
 </body>
 </html>

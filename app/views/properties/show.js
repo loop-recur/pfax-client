@@ -6,6 +6,6 @@ PropertyFax.Views.Properties.show = Backbone.View.extend({
 
   render: function() {
     var property = Render("properties-show", this.property);
-    $('#app').html(property);
+    $('#search-results').html(property);
   }
 });
